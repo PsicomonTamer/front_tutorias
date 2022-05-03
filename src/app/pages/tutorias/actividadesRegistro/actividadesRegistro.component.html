@@ -1,0 +1,57 @@
+<div class="container-fluid page">
+  <div class="d-flex page__box p-3 mt-2">Registro de Actividades</div>
+  <div class="page__content shadow p-3 position-relative">
+
+    <div class="card">
+
+      <div class="container">
+        <div class="row">
+          <div class="col-4">
+            <label for="periodoEscolar">Periodo: </label>
+            <div>
+              <p-dropdown (onClick)="llenarmodalidades()" [options]="periodos" [(ngModel)]="periodoSelec" placeholder="Seleccione un periodo"
+                optionLabel=""></p-dropdown>
+            </div>
+          </div>
+          <div class="col-4">
+            <label for="modalidad">Modalidad: </label>
+            <div>
+              <p-dropdown (onClick)="llenarcursos()" [options]="modalidades" [(ngModel)]="modalidadSelec" placeholder="Seleccione una modalidad"
+                optionLabel=""></p-dropdown>
+            </div>
+          </div>
+          <div class="col-4">
+            <label for="curso">Curso: </label>
+            <div>
+              <p-dropdown (onClick)="llenarparalelos()" [options]="cursos" [(ngModel)]="cursoSelec" placeholder="Seleccione un curso" optionLabel="">
+              </p-dropdown>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-4">
+            <label for="paralelo">Paralelo: </label>
+            <div>
+              <p-dropdown (onClick)="llenarasignaturas()" [options]="paralelos" [(ngModel)]="paraleloSelec" placeholder="Seleccione un paralelo"
+                optionLabel=""></p-dropdown>
+            </div>
+          </div>
+          <div class="col-4">
+            <label for="paralelo">Asignatura: </label>
+            <div>
+              <p-dropdown [options]="asignaturas" [(ngModel)]="asignaturasSelec" placeholder="Seleccione una asignatura"
+                optionLabel=""></p-dropdown>
+            </div>
+          </div>
+          <div class="col-4"><br>
+            <button type="submit" class="btn btn-dark" (click)="limpiarFormulario()">LIMPIAR</button>
+            <button type="submit" style="margin-left: 35px;" class="btn btn-dark" (click)="listarDatos()">LISTAR</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
