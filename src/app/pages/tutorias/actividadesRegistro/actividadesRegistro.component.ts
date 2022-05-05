@@ -16,9 +16,6 @@ export class ActividadesRegistroComponent implements OnInit {
   constructor(private servitutorias: TutoriasService) {
 
   }
-  modalidades: string[] = [];
-  modalidadSelec: string = "";
-
 
   periodo!: Periodo[];
   selectPeriodo!: Periodo;
@@ -40,11 +37,30 @@ export class ActividadesRegistroComponent implements OnInit {
       this.periodo = dataPeriodos;
       console.log(dataPeriodos);
     });
+
+    this.servitutorias.getModalidades().subscribe(dataModalidades => {
+      this.modalidad = dataModalidades;
+      console.log(this.modalidad);
+    });
+
+    this.servitutorias.getCursos().subscribe(dataCursos => {
+      this.curso = dataCursos;
+      console.log(this.curso);
+    });
+
+    this.servitutorias.getParalelos().subscribe(dataParalelos => {
+      this.paralelo = dataParalelos;
+    });
+
+    this.servitutorias.getAsignaturas().subscribe(dataAsignatura => {
+      this.asignatura = dataAsignatura;
+    });
+
+
   }
 
   llenarmodalidades() {
-      this.modalidades = ['Semi Presencial Intensiva', 'Semi Presencial No Intensiva'];
-      this.servitutorias.muestramensaje("El id es "+this.selectPeriodo.id_periodo);
+    this.servitutorias.muestramensaje("El id es "+this.selectPeriodo.id_periodo);
   }
   
 
@@ -61,6 +77,10 @@ export class ActividadesRegistroComponent implements OnInit {
   }
 
   limpiarFormulario() {
+    this.modalidad=[];
+    this.curso=[];
+    this.paralelo=[];
+    this.asignatura=[];
   }
 
   listarDatos() {

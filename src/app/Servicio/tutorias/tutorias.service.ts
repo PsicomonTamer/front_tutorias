@@ -17,23 +17,23 @@ export class TutoriasService {
 
 
   getPeriodos(){
-    return this.http.get<Periodo[]>(this.url+"registro/Periodo")
+    return this.http.get<Periodo[]>(this.url+"registro/ListarPeriodo")
   }
 
-  getModalidades(periodo:Periodo){
-    return this.http.get<Modalidad[]>(this.url+""+periodo.id_periodo)
+  getModalidades(){
+    return this.http.get<Modalidad[]>(this.url+"registro/ListarModalidad")
   }
 
   getCursos(){
-    return this.http.get<Curso[]>(this.url+"")
+    return this.http.get<Curso[]>(this.url+"registro/ListarCursos")
   }
 
   getParalelos(){
-    return this.http.get<Paralelo[]>(this.url+"")
+    return this.http.get<Paralelo[]>(this.url+"registro/ListarParalelos")
   }
 
   getAsignaturas(){
-    return this.http.get<Asignatura[]>(this.url+"")
+    return this.http.get<Asignatura[]>(this.url+"registro/ListarAsignaturas")
   }
   
   muestramensaje(mensaje:string){

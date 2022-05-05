@@ -16,14 +16,14 @@
           <div class="col-4">
             <label for="modalidad">Modalidad: </label>
             <div>
-              <p-dropdown (onChange)="llenarcursos()" [options]="modalidades" [(ngModel)]="modalidadSelec" placeholder="Seleccione una modalidad"
-                optionLabel=""></p-dropdown>
+              <p-dropdown [options]="modalidad" [(ngModel)]="selectModalidad" placeholder="Seleccione una modalidad"
+                optionLabel="descripcion"></p-dropdown>
             </div>
           </div>
           <div class="col-4">
             <label for="curso">Curso: </label>
             <div>
-              <p-dropdown (onChange)="llenarparalelos()" [options]="modalidades" [(ngModel)]="modalidadSelec" placeholder="Seleccione un curso" optionLabel="">
+              <p-dropdown [options]="curso" [(ngModel)]="selectCurso" placeholder="Seleccione un curso" optionLabel="descripcion">
               </p-dropdown>
             </div>
           </div>
@@ -33,15 +33,15 @@
           <div class="col-4">
             <label for="paralelo">Paralelo: </label>
             <div>
-              <p-dropdown (onChange)="llenarasignaturas()" [options]="modalidades" [(ngModel)]="modalidadSelec" placeholder="Seleccione un paralelo"
-                optionLabel=""></p-dropdown>
+              <p-dropdown [options]="paralelo" [(ngModel)]="selectParalelo" placeholder="Seleccione un paralelo"
+                optionLabel="descripcion"></p-dropdown>
             </div>
           </div>
           <div class="col-4">
             <label for="paralelo">Asignatura: </label>
             <div>
-              <p-dropdown [options]="modalidades" [(ngModel)]="modalidadSelec" placeholder="Seleccione una asignatura"
-                optionLabel=""></p-dropdown>
+              <p-dropdown [options]="asignatura" [(ngModel)]="selectAsignatura" placeholder="Seleccione una asignatura"
+                optionLabel="descripcion"></p-dropdown>
             </div>
           </div>
           <div class="col-4"><br>
