@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Asignatura } from 'src/app/Model/tutorias/asignatura';
+import { Curso } from 'src/app/Model/tutorias/curso';
+import { Modalidad } from 'src/app/Model/tutorias/modalidad';
+import { Paralelo } from 'src/app/Model/tutorias/paralelo';
+import { Periodo } from 'src/app/Model/tutorias/periodo';
 import { TutoriasService } from 'src/app/Servicio/tutorias/tutorias.service';
 
 @Component({
@@ -8,79 +13,58 @@ import { TutoriasService } from 'src/app/Servicio/tutorias/tutorias.service';
 })
 export class ActividadesRegistroComponent implements OnInit {
 
-  periodos = ['TSD Septiembre - Junio - 2021/2022','TSD Septiembre - Junio - 2020/2021'];
-  periodoSelec:string="";
-
-  cursos:string[] = [];
-  cursoSelec:string="";
-
-  modalidades:string[] = []
-  modalidadSelec:string="";
-
-  paralelos:string[]=[];
-  paraleloSelec:string="";
-
-  asignaturas:string[]=[];
-  asignaturasSelec:string="";
-
-
-  constructor(private servitutorias:TutoriasService ) { 
+  constructor(private servitutorias: TutoriasService) {
 
   }
+  modalidades: string[] = [];
+  modalidadSelec: string = "";
 
-  
+
+  periodo!: Periodo[];
+  selectPeriodo!: Periodo;
+
+  modalidad!: Modalidad[];
+  selectModalidad!: Modalidad;
+
+  curso!: Curso[];
+  selectCurso!: Curso;
+
+  paralelo!: Paralelo[];
+  selectParalelo!: Paralelo;
+
+  asignatura!: Asignatura[];
+  selectAsignatura!: Asignatura;
+
   ngOnInit(): void {
-    
+    this.servitutorias.getPeriodos().subscribe(dataPeriodos => {
+      this.periodo = dataPeriodos;
+      console.log(dataPeriodos);
+    });
+  }
+
+  llenarmodalidades() {
+      this.modalidades = ['Semi Presencial Intensiva', 'Semi Presencial No Intensiva'];
+      this.servitutorias.muestramensaje("El id es "+this.selectPeriodo.id_periodo);
   }
   
 
-  limpiarFormulario(){
-    this.periodoSelec="";
-    this.cursoSelec="";
-    this.cursos=[];
-    this.modalidadSelec="";
-    this.modalidades=[];
-    this.paraleloSelec=""
-    this.paralelos=[];
-    this.asignaturasSelec="";
-    this.asignaturas=[];
+  llenarcursos(){
+
   }
 
-  listarDatos(){
-    this.servitutorias.muestramensaje("BOTON LISTAR");
-  }
-
-  llenarperiodos(){
+  llenarparalelos(){
 
   }
 
   llenarasignaturas(){
-    if(this.paraleloSelec==""){
-    }else{
-      this.asignaturas = ['PROGRAMACION WEB','INGLES', 'MATEMATICA'];
-    }
 
   }
 
-  llenarcursos(){
-    if(this.modalidadSelec==""){
-    }else{
-      this.cursos = ['Básica Superior Intensiva','Bachillerato Superior Intensiva'];
-    }
+  limpiarFormulario() {
   }
 
-  llenarmodalidades(){
-    if(this.periodoSelec==""){
-    }else{
-      this.modalidades = ['Semi Presencial Intensiva','Semi Presencial No Intensiva'];
-    }
-  }
-
-  llenarparalelos(){
-    if(this.cursoSelec==""){
-    }else{
-      this.paralelos = ['2A','3A'];
-    }
+  listarDatos() {
+    this.servitutorias.muestramensaje("BOTON LISTAR");
   }
 
 }

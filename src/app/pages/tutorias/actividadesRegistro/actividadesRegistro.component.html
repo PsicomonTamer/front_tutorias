@@ -9,21 +9,21 @@
           <div class="col-4">
             <label for="periodoEscolar">Periodo: </label>
             <div>
-              <p-dropdown (onClick)="llenarmodalidades()" [options]="periodos" [(ngModel)]="periodoSelec" placeholder="Seleccione un periodo"
-                optionLabel=""></p-dropdown>
+              <p-dropdown (onChange)="llenarmodalidades()" [options]="periodo" [(ngModel)]="selectPeriodo" placeholder="Seleccione un Periodo"
+                optionLabel="fecha_inicio"></p-dropdown>
             </div>
           </div>
           <div class="col-4">
             <label for="modalidad">Modalidad: </label>
             <div>
-              <p-dropdown (onClick)="llenarcursos()" [options]="modalidades" [(ngModel)]="modalidadSelec" placeholder="Seleccione una modalidad"
+              <p-dropdown (onChange)="llenarcursos()" [options]="modalidades" [(ngModel)]="modalidadSelec" placeholder="Seleccione una modalidad"
                 optionLabel=""></p-dropdown>
             </div>
           </div>
           <div class="col-4">
             <label for="curso">Curso: </label>
             <div>
-              <p-dropdown (onClick)="llenarparalelos()" [options]="cursos" [(ngModel)]="cursoSelec" placeholder="Seleccione un curso" optionLabel="">
+              <p-dropdown (onChange)="llenarparalelos()" [options]="modalidades" [(ngModel)]="modalidadSelec" placeholder="Seleccione un curso" optionLabel="">
               </p-dropdown>
             </div>
           </div>
@@ -33,14 +33,14 @@
           <div class="col-4">
             <label for="paralelo">Paralelo: </label>
             <div>
-              <p-dropdown (onClick)="llenarasignaturas()" [options]="paralelos" [(ngModel)]="paraleloSelec" placeholder="Seleccione un paralelo"
+              <p-dropdown (onChange)="llenarasignaturas()" [options]="modalidades" [(ngModel)]="modalidadSelec" placeholder="Seleccione un paralelo"
                 optionLabel=""></p-dropdown>
             </div>
           </div>
           <div class="col-4">
             <label for="paralelo">Asignatura: </label>
             <div>
-              <p-dropdown [options]="asignaturas" [(ngModel)]="asignaturasSelec" placeholder="Seleccione una asignatura"
+              <p-dropdown [options]="modalidades" [(ngModel)]="modalidadSelec" placeholder="Seleccione una asignatura"
                 optionLabel=""></p-dropdown>
             </div>
           </div>
@@ -49,6 +49,7 @@
             <button type="submit" style="margin-left: 35px;" class="btn btn-dark" (click)="listarDatos()">LISTAR</button>
           </div>
         </div>
+
         <div class="container-fluid page">
           <p-table responsiveLayout="scroll">
             <ng-template pTemplate="header" >
@@ -108,6 +109,8 @@
               </ng-template>
           </p-table>
           </div>
+
+          <br>
 
       </div>
 
