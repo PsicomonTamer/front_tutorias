@@ -26,7 +26,7 @@ export class DeudasConsultaComponent implements OnInit {
 
   llenarCuadro(){
     if(this.ingresadoBuscar.length<10 || this.ingresadoBuscar.length>10){
-      this.servitutorias.muestramensaje("INGRESE UN NUMERO DE CEDULA VALIDO");
+      alert("INGRESE UN NUMERO DE CEDULA VALIDO");
     }else{
       this.cedula='0105865661';
       this.nombre='Cecilia Toapanta';

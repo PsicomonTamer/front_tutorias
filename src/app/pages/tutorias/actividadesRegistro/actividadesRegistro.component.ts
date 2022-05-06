@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Asignatura } from 'src/app/Model/tutorias/asignatura';
-import { Curso } from 'src/app/Model/tutorias/curso';
-import { Modalidad } from 'src/app/Model/tutorias/modalidad';
-import { Paralelo } from 'src/app/Model/tutorias/paralelo';
-import { Periodo } from 'src/app/Model/tutorias/periodo';
+import { empty } from 'rxjs';
+import { Periodo, Modalidad, Curso, Paralelo, Asignatura } from 'src/app/Model/tutorias/periodo';
 import { TutoriasService } from 'src/app/Servicio/tutorias/tutorias.service';
 
 @Component({
@@ -37,54 +34,51 @@ export class ActividadesRegistroComponent implements OnInit {
       this.periodo = dataPeriodos;
       console.log(dataPeriodos);
     });
-
-    this.servitutorias.getModalidades().subscribe(dataModalidades => {
-      this.modalidad = dataModalidades;
-      console.log(this.modalidad);
-    });
-
-    this.servitutorias.getCursos().subscribe(dataCursos => {
-      this.curso = dataCursos;
-      console.log(this.curso);
-    });
-
-    this.servitutorias.getParalelos().subscribe(dataParalelos => {
-      this.paralelo = dataParalelos;
-    });
-
-    this.servitutorias.getAsignaturas().subscribe(dataAsignatura => {
-      this.asignatura = dataAsignatura;
-    });
-
-
   }
 
   llenarmodalidades() {
-    this.servitutorias.muestramensaje("El id es "+this.selectPeriodo.id_periodo);
+    this.selectModalidad=new Modalidad; this.selectCurso=new Curso; this.selectParalelo=new Paralelo; this.selectAsignatura=new Asignatura;
+    this.curso=[];  this.paralelo=[]; this.asignatura=[];
+    this.servitutorias.getModalidades(this.selectPeriodo).subscribe(dataModalidades => {
+      this.modalidad = dataModalidades;
+    });
   }
-  
 
   llenarcursos(){
-
+    this.selectCurso=new Curso; this.selectParalelo=new Paralelo; this.selectAsignatura=new Asignatura;
+    this.paralelo=[]; this.asignatura=[];
+    this.servitutorias.getCursos(this.selectModalidad).subscribe(dataCursos => {
+      this.curso = dataCursos;
+    });
   }
 
   llenarparalelos(){
-
+    this.selectParalelo=new Paralelo; this.selectAsignatura=new Asignatura;
+    this.asignatura=[];
+    this.servitutorias.getParalelos(this.selectCurso).subscribe(dataParalelos => {
+      this.paralelo = dataParalelos;
+    });
   }
 
   llenarasignaturas(){
+    this.selectAsignatura=new Asignatura;
+    this.servitutorias.getAsignaturas(this.selectParalelo).subscribe(dataAsignatura => {
+      this.asignatura = dataAsignatura;
+    }); 
+  }
 
+  muestraidasig(){
+    alert("El id de la asignatura es "+this.selectAsignatura.id_asignatura);
   }
 
   limpiarFormulario() {
-    this.modalidad=[];
-    this.curso=[];
-    this.paralelo=[];
-    this.asignatura=[];
+    this.selectPeriodo=new Periodo; this.selectModalidad=new Modalidad; this.selectCurso=new Curso;
+    this.selectParalelo=new Paralelo; this.selectAsignatura=new Asignatura;
+    this.modalidad=[];  this.curso=[];  this.paralelo=[]; this.asignatura=[];
   }
 
   listarDatos() {
-    this.servitutorias.muestramensaje("BOTON LISTAR");
+    alert("BOTON LISTAR");
   }
 
 }
