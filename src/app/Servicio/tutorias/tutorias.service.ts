@@ -12,27 +12,23 @@ export class TutoriasService {
   private url=Api.url
 
   getPeriodos(){
-    return this.http.get<Periodo[]>(this.url+"registro/ListarPeriodo")
+    return this.http.get<Periodo[]>(this.url+"Registro/Periodos/1")
   }
 
   getModalidades(periodo:Periodo){
-    alert("El id del periodo es: "+periodo.id_periodo);
-    return this.http.get<Modalidad[]>(this.url+"registro/ListarModalidad")
+    return this.http.get<Modalidad[]>(this.url+"Registro/Modalidades/1/"+periodo.id_periodo)
   }
 
-  getCursos(modalidad:Modalidad){
-    alert("El id de la modalidad es: "+modalidad.id_modalidad);
-    return this.http.get<Curso[]>(this.url+"registro/ListarCursos")
+  getCursos(modalidad:Modalidad, periodo:Periodo){
+    return this.http.get<Curso[]>(this.url+"Registro/Cursos/1/"+modalidad.id_modalidad+"/"+periodo.id_periodo)
   }
 
-  getParalelos(curso:Curso){
-    alert("El id del curso es: "+curso.id_curso);
-    return this.http.get<Paralelo[]>(this.url+"registro/ListarParalelos")
+  getParalelos(curso:Curso,modalidad:Modalidad,periodo:Periodo){
+    return this.http.get<Paralelo[]>(this.url+"Registro/Paralelos/1/"+curso.id_curso+"/"+modalidad.id_modalidad+"/"+periodo.id_periodo)
   }
 
-  getAsignaturas(paralelo:Paralelo){
-    alert("El id del paralelo es: "+paralelo.id_paralelo);
-    return this.http.get<Asignatura[]>(this.url+"registro/ListarAsignaturas")
+  getAsignaturas(paralelo:Paralelo,curso:Curso,modalidad:Modalidad,periodo:Periodo){
+    return this.http.get<Asignatura[]>(this.url+"Registro/Asignaturas/1/"+periodo.id_periodo+"/"+curso.id_curso+"/"+paralelo.id_paralelo+"/"+modalidad.id_modalidad)
   }
   
 }

@@ -47,7 +47,7 @@ export class ActividadesRegistroComponent implements OnInit {
   llenarcursos(){
     this.selectCurso=new Curso; this.selectParalelo=new Paralelo; this.selectAsignatura=new Asignatura;
     this.paralelo=[]; this.asignatura=[];
-    this.servitutorias.getCursos(this.selectModalidad).subscribe(dataCursos => {
+    this.servitutorias.getCursos(this.selectModalidad,this.selectPeriodo).subscribe(dataCursos => {
       this.curso = dataCursos;
     });
   }
@@ -55,20 +55,16 @@ export class ActividadesRegistroComponent implements OnInit {
   llenarparalelos(){
     this.selectParalelo=new Paralelo; this.selectAsignatura=new Asignatura;
     this.asignatura=[];
-    this.servitutorias.getParalelos(this.selectCurso).subscribe(dataParalelos => {
+    this.servitutorias.getParalelos(this.selectCurso, this.selectModalidad, this.selectPeriodo).subscribe(dataParalelos => {
       this.paralelo = dataParalelos;
     });
   }
 
   llenarasignaturas(){
     this.selectAsignatura=new Asignatura;
-    this.servitutorias.getAsignaturas(this.selectParalelo).subscribe(dataAsignatura => {
+    this.servitutorias.getAsignaturas(this.selectParalelo,this.selectCurso,this.selectModalidad,this.selectPeriodo).subscribe(dataAsignatura => {
       this.asignatura = dataAsignatura;
     }); 
-  }
-
-  muestraidasig(){
-    alert("El id de la asignatura es "+this.selectAsignatura.id_asignatura);
   }
 
   limpiarFormulario() {
