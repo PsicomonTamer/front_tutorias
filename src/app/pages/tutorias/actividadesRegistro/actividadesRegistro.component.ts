@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { empty } from 'rxjs';
-import { Periodo, Modalidad, Curso, Paralelo, Asignatura } from 'src/app/Model/tutorias/periodo';
+import { Periodo, Modalidad, Curso, Paralelo, Asignatura,Estudiante } from 'src/app/Model/tutorias/periodo';
 import { TutoriasService } from 'src/app/Servicio/tutorias/tutorias.service';
 
 @Component({
@@ -29,12 +29,21 @@ export class ActividadesRegistroComponent implements OnInit {
   asignatura!: Asignatura[];
   selectAsignatura!: Asignatura;
 
+  estudiante!: Estudiante[];
+  selectEstudiante!: Estudiante;
+
   ngOnInit(): void {
     this.servitutorias.getPeriodos().subscribe(dataPeriodos => {
       this.periodo = dataPeriodos;
       console.log(dataPeriodos);
     });
   }
+  llenarestudiantes(){
+    this.selectEstudiante=new Estudiante; this.estudiante=[];
+  this.servitutorias.getEstudiantes(this.selectEstudiante).subscribe(dataEstudiante=>{
+    this.estudiante=dataEstudiante;});
+  }
+  
 
   llenarmodalidades() {
     this.selectModalidad=new Modalidad; this.selectCurso=new Curso; this.selectParalelo=new Paralelo; this.selectAsignatura=new Asignatura;

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Api } from 'src/app/config';
-import { Periodo, Modalidad, Curso, Paralelo, Asignatura } from 'src/app/Model/tutorias/periodo';
+import { Periodo, Modalidad, Curso, Paralelo, Asignatura, Estudiante} from 'src/app/Model/tutorias/periodo';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +29,9 @@ export class TutoriasService {
 
   getAsignaturas(paralelo:Paralelo,curso:Curso,modalidad:Modalidad,periodo:Periodo){
     return this.http.get<Asignatura[]>(this.url+"Registro/Asignaturas/1/"+periodo.id_periodo+"/"+curso.id_curso+"/"+paralelo.id_paralelo+"/"+modalidad.id_modalidad)
+  }
+  getEstudiantes(estudiante:Estudiante){
+    return this.http.get<Estudiante[]>(this.url+"Filtrocompleto/"idasig"/"idperiodo"/"idcurso"/"idparalelo"/"idmod)
   }
   
 }
