@@ -46,5 +46,4 @@ export class Estudiante {
     comportamiento: Number = 0;
     id_matricula: Number = 0;
     id_asignatura: Number = 0;
-
 }

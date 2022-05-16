@@ -34,5 +34,9 @@ export class TutoriasService {
   getEstudiantes(asignatura:Asignatura, periodo:Periodo,curso:Curso,paralelo:Paralelo,modalidad:Modalidad){
     return this.http.get<Estudiante[]>(this.url+"Registro/Filtrocompleto/"+asignatura.id_asignatura+"/"+periodo.id_periodo+"/"+curso.id_curso+"/"+paralelo.id_paralelo+"/"+modalidad.id_modalidad)
   }
+
+  getRegistros(){
+    return this.http.get<Estudiante[]>(this.url+"Registro/ListarRegistros")
+  }
   
 }

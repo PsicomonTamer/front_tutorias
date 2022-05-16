@@ -37,8 +37,17 @@ export class ActividadesRegistroComponent implements OnInit {
       this.periodo = dataPeriodos;
     });
   }
-  llenarestudiantes() {
-    this.servitutorias.getEstudiantes(this.selectAsignatura, this.selectPeriodo, this.selectCurso, this.selectParalelo, this.selectModalidad).subscribe(dataEstudiante => {
+  
+  //llenarestudiantes() {
+  //  this.servitutorias.getEstudiantes(this.selectAsignatura, this.selectPeriodo, this.selectCurso, this.selectParalelo, this.selectModalidad).subscribe(dataEstudiante => {
+  //    this.estudiante = dataEstudiante;
+  //    console.log(dataEstudiante);
+  //  });
+  //  alert("entro al boton");
+  //}
+
+  llenarregistros() {
+    this.servitutorias.getRegistros().subscribe(dataEstudiante => {
       this.estudiante = dataEstudiante;
       console.log(dataEstudiante);
     });
@@ -50,7 +59,7 @@ export class ActividadesRegistroComponent implements OnInit {
     this.selectModalidad = new Modalidad; this.selectCurso = new Curso; this.selectParalelo = new Paralelo; this.selectAsignatura = new Asignatura;
     this.curso = []; this.paralelo = []; this.asignatura = [];
     this.servitutorias.getModalidades(this.selectPeriodo).subscribe(dataModalidades => {
-      this.modalidad = dataModalidades;
+      this.modalidad = dataModalidades;      
     });
   }
 
