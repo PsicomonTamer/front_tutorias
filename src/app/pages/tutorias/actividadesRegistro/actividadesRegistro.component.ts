@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { empty } from 'rxjs';
-import { Periodo, Modalidad, Curso, Paralelo, Asignatura, Estudiante } from 'src/app/Model/tutorias/periodo';
+import { Periodo, Modalidad, Curso, Paralelo, Asignatura, Estudiante } from 'src/app/Model/tutorias/registro';
 import { TutoriasService } from 'src/app/Servicio/tutorias/tutorias.service';
 
 @Component({
@@ -59,7 +59,7 @@ export class ActividadesRegistroComponent implements OnInit {
     this.selectModalidad = new Modalidad; this.selectCurso = new Curso; this.selectParalelo = new Paralelo; this.selectAsignatura = new Asignatura;
     this.curso = []; this.paralelo = []; this.asignatura = [];
     this.servitutorias.getModalidades(this.selectPeriodo).subscribe(dataModalidades => {
-      this.modalidad = dataModalidades;      
+      this.modalidad = dataModalidades; 
     });
   }
 
