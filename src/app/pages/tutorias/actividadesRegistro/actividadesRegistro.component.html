@@ -46,68 +46,200 @@
           </div>
           <div class="col-4"><br>
             <button type="submit" class="btn btn-dark" (click)="limpiarFormulario()">LIMPIAR</button>
-            <button type="submit" style="margin-left: 35px;" class="btn btn-dark" (click)="llenarregistros()">LISTAR</button>
+            <button type="submit" style="margin-left: 35px;" class="btn btn-dark" (click)=" llenarestudiantes()">LISTAR</button>
           </div>
         </div>
 
         <div class="container-fluid page">
-          <p-table responsiveLayout="scroll">
-            <ng-template pTemplate="header" >
-              
-                <tr>
-                  <th>Id</th>
-                  <th>Aporte 1</th>
-                  <th>Aporte 2</th>
-                  <th>Aporte 3</th>
-                  <th>Aporte 4</th>
-                  <th>Evaluacion 1</th>
-                  <th>Aporte 5</th>
-                  <th>Aporte 6</th>
-                  <th>Aporte 7</th>
-                  <th>Aporte 8</th>
-                  <th>Evaluacion 2</th>
-                  <th>Examen Final</th>
-                  <th>Promedio Final</th>
-                  <th>Examen Supletorio</th>
-                  <th>Promedio Supletorio</th>
-                  <th>Examen Remedial</th>
-                  <th>Promedio Remedial</th>
-                  <th>Examen Gracia</th>
-                  <th>Promedio Gracia</th>
-                  <th>Comporamiento</th>
-                  <th>Id Matricula</th>
-                  <th>Id Asignatura</th>
-                  
-                </tr>
-            </ng-template>
-              <ng-template pTemplate="body">
-                <tr >
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  
-                </tr>
+          <p-toast></p-toast>
+
+          <div class="card">
+              <p-toolbar styleClass="mb-4">
+                  <ng-template pTemplate="left">
+                      <!--<button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+                      <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelected()" [disabled]="! || !selec.length"></button> -->
+                  </ng-template>
+          
+              </p-toolbar>
+          
+              <p-table #dt [value]="registro" [rows]="10" [paginator]="true" [globalFilterFields]="['registro.cedula']" responsiveLayout="scroll"
+                  [(selection)]="selectRegistro" [rowHover]="true" dataKey="registro.id_registro"
+                  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+                  <ng-template pTemplate="caption">
+                      <div class="flex align-items-center justify-content-between">
+                          <h5 class="m-0"></h5>
+                          <span class="p-input-icon-left">
+                              <i class="pi pi-search"></i>
+                              <!--<input pInputText type="text" (input)="dt.filterGlobal(registro, 'contains')" placeholder="Search..." /> -->
+                          </span>
+                      </div>
+                  </ng-template>
+                  <ng-template pTemplate="header">
+                      <tr>
+                          <th style="width: 3rem">
+                              <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                          </th>
+                    
+                         
+                          <th pSortableColumn="">Id<p-sortIcon field=""></p-sortIcon></th>
+                          <th pSortableColumn="">Cedula<p-sortIcon field=""></p-sortIcon></th>
+                          <th pSortableColumn="">Nombre<p-sortIcon field=""></p-sortIcon></th>
+                          <th pSortableColumn="">Apellido<p-sortIcon field=""></p-sortIcon></th>
+                          <th pSortableColumn="">Aporte 1<p-sortIcon field=""></p-sortIcon></th>
+                          <th pSortableColumn="">Aporte 2<p-sortIcon field=""></p-sortIcon></th>
+                          <th pSortableColumn=""> Aporte 3<p-sortIcon field=""></p-sortIcon></th>
+                          <th pSortableColumn="">Aporte 4<p-sortIcon field=""></p-sortIcon></th>
+                          <th pSortableColumn="">Evaluacionn 1<p-sortIcon field=""></p-sortIcon></th>
+                          <th pSortableColumn="">Aporte 5<p-sortIcon field=""></p-sortIcon></th>
+                          <th pSortableColumn="">Aporte 6<p-sortIcon field=""></p-sortIcon></th>
+                          <th pSortableColumn="">Aporte 7<p-sortIcon field=""></p-sortIcon></th>
+                          <th pSortableColumn="">Aporte 8<p-sortIcon field=""></p-sortIcon></th>
+                          <th pSortableColumn="">Evaluacion 2<p-sortIcon field=""></p-sortIcon></th>
+                          <th pSortableColumn="">Examen Final<p-sortIcon field=""></p-sortIcon></th>
+                          <th pSortableColumn="">Promedio Final<p-sortIcon field=""></p-sortIcon></th>
+                          <th pSortableColumn="">Examen Supletorio<p-sortIcon field=""></p-sortIcon></th>
+                          <th pSortableColumn="">Promedio Supletorio<p-sortIcon field=""></p-sortIcon></th>
+                          <th pSortableColumn="">Examen Remedial<p-sortIcon field=""></p-sortIcon></th>
+                          <th pSortableColumn="">Promedio Remedial<p-sortIcon field=""></p-sortIcon></th>
+                          <th pSortableColumn="">Examen Gracia<p-sortIcon field=""></p-sortIcon></th>
+                          <th pSortableColumn="">Promedio Gracia<p-sortIcon field=""></p-sortIcon></th>
+                          <th pSortableColumn="">Comportamiento<p-sortIcon field=""></p-sortIcon></th>
+                         
+                      </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-registro>
+                      <tr>
+                          <td>
+                              <p-tableCheckbox [value]="registro"></p-tableCheckbox>
+                          </td>
+                          <td>{{registro.estudiante.id_estudiante}}</td>
+                          <td>{{registro.estudiante.id_persona.cedula}}</td>
+                          <td>{{registro.estudiante.id_persona.nombre}}</td>
+                          <td>{{registro.estudiante.id_persona.apellido}}</td>
+                          <td>{{registro.aporte1}}</td>
+                        
+                          <td>
+                              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="edit(registro)" ></button>
+                              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" ></button>  
+                          </td>
+                      </tr>
+                  </ng-template>
+                  <ng-template pTemplate="summary">
+                      <div class="flex align-items-center justify-content-between">
+                        <!--  In total there are {{products ? products.length : 0 }} products.-->
+                      </div>
+                  </ng-template>
+              </p-table>
+          </div>
+          
+          <p-dialog [(visible)]="Dialog" [style]="{width: '450px'}" header="Product Details" [modal]="true" styleClass="p-fluid">
+              <ng-template pTemplate="content">
+                
+                  <div class="field">
+                      <label for="ap1">Aporte 1</label>
+                      <input type="text" pInputText id="ap1"  required autofocus />
+                      <!-- <small class="p-error" *ngIf="submitted && !product.name">Name is required.</small> -->
+                  </div>
+                  <div class="field">
+                    <label for="ap2">Aporte 2</label>
+                    <input type="text" pInputText id="ap2"  required autofocus />
+                    
+                  </div>
+                  <div class="field">
+                    <label for="ap3">Aporte 3</label>
+                    <input type="text" pInputText id="ap3"  required autofocus />
+                    
+                  </div>
+                  <div class="field">
+                    <label for="ap4">Aporte 4</label>
+                    <input type="text" pInputText id="ap4"  required autofocus />
+                    
+                  </div>
+                  <div class="field">
+                    <label for="ev1">Evaluacion 1</label>
+                    <input type="text" pInputText id="ev1" required autofocus />
+                    
+                  </div>
+                  <div class="field">
+                    <label for="ap5">Aporte 5</label>
+                    <input type="text" pInputText id="ap5" required autofocus />
+                    
+                  </div>
+                  <div class="field">
+                    <label for="ap6">Aporte 6</label>
+                    <input type="text" pInputText id="ap6"  required autofocus />
+                   
+                  </div>
+                  <div class="field">
+                    <label for="ap7">Aporte 7</label>
+                    <input type="text" pInputText id="ap7"  required autofocus />
+                    
+                  </div>
+                  <div class="field">
+                    <label for="ap8">Aporte 8</label>
+                    <input type="text" pInputText id="ap8"  required autofocus />
+                    
+                  </div>
+                  <div class="field">
+                    <label for="ev2">Evaluacion 2</label>
+                    <input type="text" pInputText id="ev2"  required autofocus />
+                   
+                  </div>
+                  <div class="field">
+                    <label for="exf">Examen Final</label>
+                    <input type="text" pInputText id="exf"  required autofocus />
+                    
+                  </div>
+                  <div class="field">
+                    <label for="pf">Promedio Final</label>
+                    <input type="text" pInputText id="pf"  required autofocus />
+                    
+                  </div>
+                  <div class="field">
+                    <label for="exs">Examen Supletorio</label>
+                    <input type="text" pInputText id="exs"  required autofocus />
+                    
+                  </div>
+                  <div class="field">
+                    <label for="ps">Promedio Supletorio</label>
+                    <input type="text" pInputText id="ps"  required autofocus />
+                    
+                  </div>
+                  <div class="field">
+                    <label for="exr">Examen Remedial</label>
+                    <input type="text" pInputText id="exr"  required autofocus />
+                    
+                  </div>
+                  <div class="field">
+                    <label for="pr">Promedio Remedial</label>
+                    <input type="text" pInputText id="pr"  required autofocus />
+                   
+                  </div>
+                  <div class="field">
+                    <label for="exg">Examen Gracia</label>
+                    <input type="text" pInputText id="exg"  required autofocus />
+                    
+                  </div>
+                  <div class="field">
+                    <label for="pg">Promedio Gracia</label>
+                    <input type="text" pInputText id="pg"  required autofocus />
+                    
+                  </div>
+                  <div class="field">
+                    <label for="comp">Comportamiento</label>
+                    <input type="text" pInputText id="comp"  required autofocus />
+                    
+                  </div>
               </ng-template>
-          </p-table>
+          
+              <ng-template pTemplate="footer">
+                  <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+                  <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="save()"></button>
+              </ng-template>
+          </p-dialog>
+          
+          <!--<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>-->
+          
           </div>
 
           <br>

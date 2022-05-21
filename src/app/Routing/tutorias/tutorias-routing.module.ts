@@ -5,7 +5,7 @@ import { DeudasConsultaComponent } from 'src/app/pages/tutorias/deudasConsulta/d
 
 
 const routes: Routes = [
-  //Aqui Rutas
+  
     {path:'tutorias/registroActividades',component:ActividadesRegistroComponent},
     {path:'tutorias/consultaDeudas',component:DeudasConsultaComponent}
 

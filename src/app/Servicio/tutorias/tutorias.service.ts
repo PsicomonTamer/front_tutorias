@@ -2,7 +2,7 @@ import { VIRTUAL_SCROLL_STRATEGY } from '@angular/cdk/scrolling';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Api } from 'src/app/config';
-import { Periodo, Modalidad, Curso, Paralelo, Asignatura, Estudiante} from 'src/app/Model/tutorias/periodo';
+import { Periodo, Modalidad, Curso, Paralelo, Asignatura, Registro} from 'src/app/Model/tutorias/periodo';
 
 @Injectable({
   providedIn: 'root'
@@ -31,12 +31,12 @@ export class TutoriasService {
   getAsignaturas(paralelo:Paralelo,curso:Curso,modalidad:Modalidad,periodo:Periodo){
     return this.http.get<Asignatura[]>(this.url+"Registro/Asignaturas/1/"+periodo.id_periodo+"/"+curso.id_curso+"/"+paralelo.id_paralelo+"/"+modalidad.id_modalidad)
   }
-  getEstudiantes(asignatura:Asignatura, periodo:Periodo,curso:Curso,paralelo:Paralelo,modalidad:Modalidad){
-    return this.http.get<Estudiante[]>(this.url+"Registro/Filtrocompleto/"+asignatura.id_asignatura+"/"+periodo.id_periodo+"/"+curso.id_curso+"/"+paralelo.id_paralelo+"/"+modalidad.id_modalidad)
+ getEstudiantes(asignatura:Asignatura, periodo:Periodo,curso:Curso,paralelo:Paralelo,modalidad:Modalidad){
+    return this.http.get<Registro[]>(this.url+"Registro/Filtrocompleto/"+asignatura.id_asignatura+"/"+periodo.id_periodo+"/"+curso.id_curso+"/"+paralelo.id_paralelo+"/"+modalidad.id_modalidad)
   }
 
   getRegistros(){
-    return this.http.get<Estudiante[]>(this.url+"Registro/ListarRegistros")
+    return this.http.get<Registro[]>(this.url+"Registro/ListarRegistros")
   }
   
 }

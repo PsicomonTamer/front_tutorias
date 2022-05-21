@@ -23,7 +23,10 @@ export class Asignatura {
     descripcion: String = "";
 }
 
-export class Estudiante {
+export class Registro {
+    apellido: String=""
+    cedula: String=""
+    nombre:String=""
     id_registro: Number = 0;
     aporte1: Number = 0;
     aporte2: Number = 0;
@@ -47,3 +50,4 @@ export class Estudiante {
     id_matricula: Number = 0;
     id_asignatura: Number = 0;
 }
+

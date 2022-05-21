@@ -1,18 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { empty } from 'rxjs';
-import { Periodo, Modalidad, Curso, Paralelo, Asignatura, Estudiante } from 'src/app/Model/tutorias/periodo';
+import { ConfirmationService } from 'primeng/api';
+import { MessageService } from 'primeng/api';
+import { Periodo, Modalidad, Curso, Paralelo, Asignatura, Registro } from 'src/app/Model/tutorias/periodo';
 import { TutoriasService } from 'src/app/Servicio/tutorias/tutorias.service';
 
 @Component({
   selector: 'app-actividades-registro',
   templateUrl: './actividadesRegistro.component.html',
-  styleUrls: ['./actividadesRegistro.component.scss']
+  styleUrls: ['./actividadesRegistro.component.scss'], providers: [MessageService]
 })
 export class ActividadesRegistroComponent implements OnInit {
 
   constructor(private servitutorias: TutoriasService) {
 
   }
+  submitted!: boolean;
+
+  statuses!: any[];
+  
+  Dialog!: boolean;
 
   periodo!: Periodo[];
   selectPeriodo!: Periodo;
@@ -29,8 +36,8 @@ export class ActividadesRegistroComponent implements OnInit {
   asignatura!: Asignatura[];
   selectAsignatura!: Asignatura;
 
-  estudiante!: Estudiante[];
-  selectEstudiante!: Estudiante;
+  registro!: Registro[];
+  selectRegistro!: Registro;
 
   ngOnInit(): void {
     this.servitutorias.getPeriodos().subscribe(dataPeriodos => {
@@ -38,20 +45,21 @@ export class ActividadesRegistroComponent implements OnInit {
     });
   }
   
-  //llenarestudiantes() {
-  //  this.servitutorias.getEstudiantes(this.selectAsignatura, this.selectPeriodo, this.selectCurso, this.selectParalelo, this.selectModalidad).subscribe(dataEstudiante => {
-  //    this.estudiante = dataEstudiante;
-  //    console.log(dataEstudiante);
-  //  });
-  //  alert("entro al boton");
-  //}
-
-  llenarregistros() {
-    this.servitutorias.getRegistros().subscribe(dataEstudiante => {
-      this.estudiante = dataEstudiante;
+  llenarestudiantes() {
+    this.servitutorias.getEstudiantes(this.selectAsignatura, this.selectPeriodo, this.selectCurso, this.selectParalelo, this.selectModalidad).subscribe(dataEstudiante => {
+      this.registro = dataEstudiante;
+      
       console.log(dataEstudiante);
     });
     alert("entro al boton");
+  }
+
+  llenarregistros() {
+    this.servitutorias.getRegistros().subscribe(dataRegistro => {
+      this.registro = dataRegistro;
+      console.log(dataRegistro);
+    });
+
   }
 
 
@@ -91,5 +99,17 @@ export class ActividadesRegistroComponent implements OnInit {
     this.selectParalelo = new Paralelo; this.selectAsignatura = new Asignatura;
     this.modalidad = []; this.curso = []; this.paralelo = []; this.asignatura = [];
   }
+  
+  edit(registro: Registro) {
+    this.registro = [registro];
+    this.Dialog = true;
 
+  }
+  save() {
+   
+}
+hideDialog() {
+  this.Dialog = false;
+  this.submitted = false;
+}
 }
