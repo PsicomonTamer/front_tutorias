@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { empty } from 'rxjs';
-import { ConfirmationService } from 'primeng/api';
-import { MessageService } from 'primeng/api';
-import { Periodo, Modalidad, Curso, Paralelo, Asignatura, Registro } from 'src/app/Model/tutorias/periodo';
+import { Periodo, Modalidad, Curso, Paralelo, Asignatura, Estudiante,Registro } from 'src/app/Model/tutorias/registro';
 import { TutoriasService } from 'src/app/Servicio/tutorias/tutorias.service';
-
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-actividades-registro',
   templateUrl: './actividadesRegistro.component.html',
@@ -67,7 +65,7 @@ export class ActividadesRegistroComponent implements OnInit {
     this.selectModalidad = new Modalidad; this.selectCurso = new Curso; this.selectParalelo = new Paralelo; this.selectAsignatura = new Asignatura;
     this.curso = []; this.paralelo = []; this.asignatura = [];
     this.servitutorias.getModalidades(this.selectPeriodo).subscribe(dataModalidades => {
-      this.modalidad = dataModalidades;      
+      this.modalidad = dataModalidades; 
     });
   }
 
