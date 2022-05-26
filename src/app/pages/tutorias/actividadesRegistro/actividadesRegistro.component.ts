@@ -2,15 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { empty } from 'rxjs';
 import { Periodo, Modalidad, Curso, Paralelo, Asignatura, Estudiante,Registro } from 'src/app/Model/tutorias/registro';
 import { TutoriasService } from 'src/app/Servicio/tutorias/tutorias.service';
-import { MessageService } from 'primeng/api';
+import { MessageService, SharedModule,ConfirmationService  } from 'primeng/api';
 @Component({
   selector: 'app-actividades-registro',
   templateUrl: './actividadesRegistro.component.html',
-  styleUrls: ['./actividadesRegistro.component.scss'], providers: [MessageService]
+  styleUrls: ['./actividadesRegistro.component.scss'], 
+   providers: [MessageService,SharedModule,ConfirmationService]
 })
 export class ActividadesRegistroComponent implements OnInit {
 
-  constructor(private servitutorias: TutoriasService) {
+  constructor(private servitutorias: TutoriasService, private messageService: MessageService, private confirmationService: ConfirmationService) {
 
   }
   submitted!: boolean;
@@ -43,19 +44,27 @@ export class ActividadesRegistroComponent implements OnInit {
     });
   }
   
-  llenarestudiantes() {
-    this.servitutorias.getEstudiantes(this.selectAsignatura, this.selectPeriodo, this.selectCurso, this.selectParalelo, this.selectModalidad).subscribe(dataEstudiante => {
-      this.registro = dataEstudiante;
-      
-      console.log(dataEstudiante);
-    });
-    alert("entro al boton");
-  }
+  
 
-  llenarregistros() {
+  llenarregistross() {
     this.servitutorias.getRegistros().subscribe(dataRegistro => {
-      this.registro = dataRegistro;
-      console.log(dataRegistro);
+
+      for (let i = 0; i < dataRegistro.length; i++) {
+        console.log(dataRegistro);
+        if ((this.selectPeriodo.id_periodo == dataRegistro[i].id_matricula.id_periodo.id_periodo)
+          && (this.selectModalidad.id_modalidad == dataRegistro[i].id_matricula.modalidad.id_modalidad)
+          && (this.selectCurso.id_curso == dataRegistro[i].id_matricula.curso.id_curso)
+          && (this.selectParalelo.id_paralelo == dataRegistro[i].id_matricula.id_paralelo.id_paralelo)
+          && (this.selectAsignatura.id_asignatura == dataRegistro[i].id_asignatura.id_asignatura)) {
+            console.log(dataRegistro);
+            console.log("se encontro en la posicion"+i);
+        } else {
+          console.log("no se encontro en la posicion"+i);
+          dataRegistro.splice(i,1);
+          i=-1;
+        };
+      }
+      this.registro=dataRegistro;
     });
 
   }
@@ -98,16 +107,51 @@ export class ActividadesRegistroComponent implements OnInit {
     this.modalidad = []; this.curso = []; this.paralelo = []; this.asignatura = [];
   }
   
-  edit(registro: Registro) {
-    this.registro = [registro];
+  edit(selectRegistro: Registro) {
+    this.selectRegistro = {...selectRegistro};
     this.Dialog = true;
 
   }
   save() {
-   
+    this.submitted = true;
+
+    
+        if (this.selectRegistro.id_registro) {
+            this.registro[this.findIndexById(this.selectRegistro.id_registro)] = this.selectRegistro;
+            this.messageService.add({severity:'success', summary: 'Successful', detail: 'Registro Actualizado', life: 3000});
+        }
+        else {
+            this.selectRegistro.id_registro = this.createId();
+            this.registro.push(this.selectRegistro);
+            this.messageService.add({severity:'success', summary: 'Successful', detail: 'Registro Creado', life: 3000});
+        }
+
+        this.registro = [...this.registro];
+        this.Dialog = false;
+        this.selectRegistro = {...this.selectRegistro};
+    
 }
 hideDialog() {
   this.Dialog = false;
   this.submitted = false;
+}
+findIndexById(id: Number) {
+  let index = -1;
+  for (let i = 0; i < this.registro.length; i++) {
+      if (this.registro[i].id_registro === id) {
+          index = i;
+          break;
+      }
+  }
+
+  return index;
+}
+createId(): Number {
+  let id =0;
+  
+  for ( var i = 0; i < 5; i++ ) {
+      id +=(Math.floor(Math.random()));
+  }
+  return id;
 }
 }

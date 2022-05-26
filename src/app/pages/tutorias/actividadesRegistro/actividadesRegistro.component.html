@@ -46,39 +46,30 @@
           </div>
           <div class="col-4"><br>
             <button type="submit" class="btn btn-dark" (click)="limpiarFormulario()">LIMPIAR</button>
-            <button type="submit" style="margin-left: 35px;" class="btn btn-dark" (click)=" llenarestudiantes()">LISTAR</button>
+            <button type="submit" style="margin-left: 35px;" class="btn btn-dark" (click)=" llenarregistross()">LISTAR</button>
           </div>
         </div>
 
         <div class="container-fluid page">
           <p-toast></p-toast>
 
-          <div class="card">
-              <p-toolbar styleClass="mb-4">
-                  <ng-template pTemplate="left">
-                      <!--<button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
-                      <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelected()" [disabled]="! || !selec.length"></button> -->
-                  </ng-template>
+        
           
-              </p-toolbar>
-          
-              <p-table #dt [value]="registro" [rows]="10" [paginator]="true" [globalFilterFields]="['registro.cedula']" responsiveLayout="scroll"
+              <p-table #dt [value]="registro" [rows]="10" [paginator]="true" [globalFilterFields]="['registro.id_matricula.estudiante.id_persona.cedula']" responsiveLayout="scroll"
                   [(selection)]="selectRegistro" [rowHover]="true" dataKey="registro.id_registro"
-                  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+                  currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" [showCurrentPageReport]="true">
                   <ng-template pTemplate="caption">
                       <div class="flex align-items-center justify-content-between">
                           <h5 class="m-0"></h5>
                           <span class="p-input-icon-left">
                               <i class="pi pi-search"></i>
-                              <!--<input pInputText type="text" (input)="dt.filterGlobal(registro, 'contains')" placeholder="Search..." /> -->
+                              <input pInputText type="text" (input)="dt.filterGlobal(registro, 'contains')" placeholder="Buscar" /> 
                           </span>
                       </div>
                   </ng-template>
                   <ng-template pTemplate="header">
                       <tr>
-                          <th style="width: 3rem">
-                              <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                          </th>
+                          
                     
                          
                           <th pSortableColumn="">Id<p-sortIcon field=""></p-sortIcon></th>
@@ -104,20 +95,36 @@
                           <th pSortableColumn="">Examen Gracia<p-sortIcon field=""></p-sortIcon></th>
                           <th pSortableColumn="">Promedio Gracia<p-sortIcon field=""></p-sortIcon></th>
                           <th pSortableColumn="">Comportamiento<p-sortIcon field=""></p-sortIcon></th>
-                         
+                         <th></th>
                       </tr>
                   </ng-template>
                   <ng-template pTemplate="body" let-registro>
                       <tr>
-                          <td>
-                              <p-tableCheckbox [value]="registro"></p-tableCheckbox>
-                          </td>
-                          <td>{{registro.estudiante.id_estudiante}}</td>
-                          <td>{{registro.estudiante.id_persona.cedula}}</td>
-                          <td>{{registro.estudiante.id_persona.nombre}}</td>
-                          <td>{{registro.estudiante.id_persona.apellido}}</td>
+                         
+                          <td>{{registro.id_registro}}</td>
+                          <td>{{registro.id_matricula.estudiante.id_persona.cedula}}</td>
+                          <td>{{registro.id_matricula.estudiante.id_persona.nombre}}</td>
+                          <td>{{registro.id_matricula.estudiante.id_persona.apellido}}</td>
                           <td>{{registro.aporte1}}</td>
-                        
+                          <td>{{registro.aporte2}}</td>
+                          <td>{{registro.aporte3}}</td>
+                          <td>{{registro.aporte4}}</td>
+                          <td>{{registro.evaluacion1}}</td>
+                          <td>{{registro.aporte5}}</td>
+                          <td>{{registro.aporte6}}</td>
+                          <td>{{registro.aporte7}}</td>
+                          <td>{{registro.aporte8}}</td>
+                          <td>{{registro.evaluacion2}}</td>
+                          <td>{{registro.examenfinal}}</td>
+                          <td>{{registro.promediofinal}}</td>
+                          <td>{{registro.examen_supletorio}}</td>
+                          <td>{{registro.promedio_supletorio}}</td>
+                          <td>{{registro.examen_remedial}}</td>
+                          <td>{{registro.promedio_remedial}}</td>
+                          <td>{{registro.examen_gracia}}</td>
+                          <td>{{registro.promedio_gracia}}</td>
+                          <td>{{registro.comportamiento}}</td>
+                         
                           <td>
                               <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="edit(registro)" ></button>
                               <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" ></button>  
@@ -126,108 +133,108 @@
                   </ng-template>
                   <ng-template pTemplate="summary">
                       <div class="flex align-items-center justify-content-between">
-                        <!--  In total there are {{products ? products.length : 0 }} products.-->
+                          En Total hay {{registro ? registro.length : 0 }} registros.
                       </div>
                   </ng-template>
               </p-table>
           </div>
           
-          <p-dialog [(visible)]="Dialog" [style]="{width: '450px'}" header="Product Details" [modal]="true" styleClass="p-fluid">
+          <p-dialog [(visible)]="Dialog" [style]="{width: '450px'}" header="Detalles" [modal]="true" styleClass="p-fluid">
               <ng-template pTemplate="content">
                 
                   <div class="field">
                       <label for="ap1">Aporte 1</label>
-                      <input type="text" pInputText id="ap1"  required autofocus />
+                      <input type="text" pInputText id="ap1" [(ngModel)]="selectRegistro.aporte1"  autofocus />
                       <!-- <small class="p-error" *ngIf="submitted && !product.name">Name is required.</small> -->
                   </div>
                   <div class="field">
                     <label for="ap2">Aporte 2</label>
-                    <input type="text" pInputText id="ap2"  required autofocus />
+                    <input type="text" pInputText id="ap2" [(ngModel)]="selectRegistro.aporte2"  autofocus />
                     
                   </div>
                   <div class="field">
                     <label for="ap3">Aporte 3</label>
-                    <input type="text" pInputText id="ap3"  required autofocus />
+                    <input type="text" pInputText id="ap3"  [(ngModel)]="selectRegistro.aporte3"  autofocus />
                     
                   </div>
                   <div class="field">
                     <label for="ap4">Aporte 4</label>
-                    <input type="text" pInputText id="ap4"  required autofocus />
+                    <input type="text" pInputText id="ap4" [(ngModel)]="selectRegistro.aporte4"  autofocus />
                     
                   </div>
                   <div class="field">
                     <label for="ev1">Evaluacion 1</label>
-                    <input type="text" pInputText id="ev1" required autofocus />
+                    <input type="text" pInputText id="ev1" [(ngModel)]="selectRegistro.evaluacion1"  autofocus />
                     
                   </div>
                   <div class="field">
                     <label for="ap5">Aporte 5</label>
-                    <input type="text" pInputText id="ap5" required autofocus />
+                    <input type="text" pInputText id="ap5" [(ngModel)]="selectRegistro.aporte5" required autofocus />
                     
                   </div>
                   <div class="field">
                     <label for="ap6">Aporte 6</label>
-                    <input type="text" pInputText id="ap6"  required autofocus />
+                    <input type="text" pInputText id="ap6" [(ngModel)]="selectRegistro.aporte6"  autofocus />
                    
                   </div>
                   <div class="field">
                     <label for="ap7">Aporte 7</label>
-                    <input type="text" pInputText id="ap7"  required autofocus />
+                    <input type="text" pInputText id="ap7" [(ngModel)]="selectRegistro.aporte7"  autofocus />
                     
                   </div>
                   <div class="field">
                     <label for="ap8">Aporte 8</label>
-                    <input type="text" pInputText id="ap8"  required autofocus />
+                    <input type="text" pInputText id="ap8" [(ngModel)]="selectRegistro.aporte8"  autofocus />
                     
                   </div>
                   <div class="field">
                     <label for="ev2">Evaluacion 2</label>
-                    <input type="text" pInputText id="ev2"  required autofocus />
+                    <input type="text" pInputText id="ev2" [(ngModel)]="selectRegistro.evaluacion2"  autofocus />
                    
                   </div>
                   <div class="field">
                     <label for="exf">Examen Final</label>
-                    <input type="text" pInputText id="exf"  required autofocus />
+                    <input type="text" pInputText id="exf" [(ngModel)]="selectRegistro.examenfinal"  autofocus />
                     
                   </div>
                   <div class="field">
                     <label for="pf">Promedio Final</label>
-                    <input type="text" pInputText id="pf"  required autofocus />
+                    <input type="text" pInputText id="pf" [(ngModel)]="selectRegistro.promediofinal"  autofocus />
                     
                   </div>
                   <div class="field">
                     <label for="exs">Examen Supletorio</label>
-                    <input type="text" pInputText id="exs"  required autofocus />
+                    <input type="text" pInputText id="exs" [(ngModel)]="selectRegistro.examen_supletorio" autofocus />
                     
                   </div>
                   <div class="field">
                     <label for="ps">Promedio Supletorio</label>
-                    <input type="text" pInputText id="ps"  required autofocus />
+                    <input type="text" pInputText id="ps" [(ngModel)]="selectRegistro.promedio_supletorio"  autofocus />
                     
                   </div>
                   <div class="field">
                     <label for="exr">Examen Remedial</label>
-                    <input type="text" pInputText id="exr"  required autofocus />
+                    <input type="text" pInputText id="exr" [(ngModel)]="selectRegistro.examen_remedial"  autofocus />
                     
                   </div>
                   <div class="field">
                     <label for="pr">Promedio Remedial</label>
-                    <input type="text" pInputText id="pr"  required autofocus />
+                    <input type="text" pInputText id="pr" [(ngModel)]="selectRegistro.promedio_remedial" autofocus />
                    
                   </div>
                   <div class="field">
                     <label for="exg">Examen Gracia</label>
-                    <input type="text" pInputText id="exg"  required autofocus />
+                    <input type="text" pInputText id="exg" [(ngModel)]="selectRegistro.examen_gracia"  autofocus />
                     
                   </div>
                   <div class="field">
                     <label for="pg">Promedio Gracia</label>
-                    <input type="text" pInputText id="pg"  required autofocus />
+                    <input type="text" pInputText id="pg" [(ngModel)]="selectRegistro.promedio_gracia"  autofocus />
                     
                   </div>
                   <div class="field">
                     <label for="comp">Comportamiento</label>
-                    <input type="text" pInputText id="comp"  required autofocus />
+                    <input type="text" pInputText id="comp" [(ngModel)]="selectRegistro.comportamiento"  autofocus />
                     
                   </div>
               </ng-template>
@@ -247,6 +254,6 @@
       </div>
 
     </div>
-  </div>
+  
 
 </div>
