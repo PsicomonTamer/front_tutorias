@@ -1,9 +1,10 @@
+import { id_persona } from "./deudas";
+
 export class Periodo {
     id_periodo: Number = 0;
     fecha_inicio: Date = new Date;
     fecha_fin: Date = new Date;
 }
-import { id_persona } from "./deudas";
 
 export class Modalidad {
     id_modalidad: Number = 0;
@@ -19,10 +20,12 @@ export class Paralelo {
     id_paralelo: Number = 0;
     descripcion: String = "";
 }
+
 export class Asignatura {
     id_asignatura: Number = 0;
     descripcion: String = "";
 }
+
 export class Estudiante{
     id_estudiante:Number=0;
     id_persona: id_persona = new id_persona;

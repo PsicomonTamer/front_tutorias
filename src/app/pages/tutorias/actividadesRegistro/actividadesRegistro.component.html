@@ -40,21 +40,19 @@
           <div class="col-4">
             <label for="paralelo">Asignatura: </label>
             <div>
-              <p-dropdown [options]="asignatura" [(ngModel)]="selectAsignatura" placeholder="Seleccione una asignatura"
+              <p-dropdown (onChange)="habilitarListar()" [options]="asignatura" [(ngModel)]="selectAsignatura" placeholder="Seleccione una asignatura"
                 optionLabel="descripcion"></p-dropdown>
             </div>
           </div>
           <div class="col-4"><br>
-            <button type="submit" class="btn btn-dark" (click)="limpiarFormulario()">LIMPIAR</button>
-            <button type="submit" style="margin-left: 35px;" class="btn btn-dark" (click)=" llenarregistross()">LISTAR</button>
+            <button type="submit" class="btn btn-dark" [disabled]="selectBoolean" (click)=" llenarregistros()">LISTAR</button>
+            <button type="submit" style="margin-left: 35px;" class="btn btn-dark" (click)="limpiarFormulario()">LIMPIAR</button>
           </div>
         </div>
 
         <div class="container-fluid page">
           <p-toast></p-toast>
 
-        
-          
               <p-table #dt [value]="registro" [rows]="10" [paginator]="true" [globalFilterFields]="['registro.id_matricula.estudiante.id_persona.cedula']" responsiveLayout="scroll"
                   [(selection)]="selectRegistro" [rowHover]="true" dataKey="registro.id_registro"
                   currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros" [showCurrentPageReport]="true">
@@ -69,38 +67,35 @@
                   </ng-template>
                   <ng-template pTemplate="header">
                       <tr>
-                          
-                    
-                         
-                          <th pSortableColumn="">Id<p-sortIcon field=""></p-sortIcon></th>
-                          <th pSortableColumn="">Cedula<p-sortIcon field=""></p-sortIcon></th>
-                          <th pSortableColumn="">Nombre<p-sortIcon field=""></p-sortIcon></th>
-                          <th pSortableColumn="">Apellido<p-sortIcon field=""></p-sortIcon></th>
-                          <th pSortableColumn="">Aporte 1<p-sortIcon field=""></p-sortIcon></th>
-                          <th pSortableColumn="">Aporte 2<p-sortIcon field=""></p-sortIcon></th>
-                          <th pSortableColumn=""> Aporte 3<p-sortIcon field=""></p-sortIcon></th>
-                          <th pSortableColumn="">Aporte 4<p-sortIcon field=""></p-sortIcon></th>
-                          <th pSortableColumn="">Evaluacionn 1<p-sortIcon field=""></p-sortIcon></th>
-                          <th pSortableColumn="">Aporte 5<p-sortIcon field=""></p-sortIcon></th>
-                          <th pSortableColumn="">Aporte 6<p-sortIcon field=""></p-sortIcon></th>
-                          <th pSortableColumn="">Aporte 7<p-sortIcon field=""></p-sortIcon></th>
-                          <th pSortableColumn="">Aporte 8<p-sortIcon field=""></p-sortIcon></th>
-                          <th pSortableColumn="">Evaluacion 2<p-sortIcon field=""></p-sortIcon></th>
-                          <th pSortableColumn="">Examen Final<p-sortIcon field=""></p-sortIcon></th>
-                          <th pSortableColumn="">Promedio Final<p-sortIcon field=""></p-sortIcon></th>
-                          <th pSortableColumn="">Examen Supletorio<p-sortIcon field=""></p-sortIcon></th>
-                          <th pSortableColumn="">Promedio Supletorio<p-sortIcon field=""></p-sortIcon></th>
-                          <th pSortableColumn="">Examen Remedial<p-sortIcon field=""></p-sortIcon></th>
-                          <th pSortableColumn="">Promedio Remedial<p-sortIcon field=""></p-sortIcon></th>
-                          <th pSortableColumn="">Examen Gracia<p-sortIcon field=""></p-sortIcon></th>
-                          <th pSortableColumn="">Promedio Gracia<p-sortIcon field=""></p-sortIcon></th>
-                          <th pSortableColumn="">Comportamiento<p-sortIcon field=""></p-sortIcon></th>
+                          <th pSortableColumn="">Id</th>
+                          <th pSortableColumn="">Cedula</th>
+                          <th pSortableColumn="">Nombre</th>
+                          <th pSortableColumn="">Apellido</th>
+                          <th pSortableColumn="">Aporte 1</th>
+                          <th pSortableColumn="">Aporte 2</th>
+                          <th pSortableColumn=""> Aporte 3</th>
+                          <th pSortableColumn="">Aporte 4</th>
+                          <th pSortableColumn="">Evaluacionn 1</th>
+                          <th pSortableColumn="">Aporte 5</th>
+                          <th pSortableColumn="">Aporte 6</th>
+                          <th pSortableColumn="">Aporte 7</th>
+                          <th pSortableColumn="">Aporte 8</th>
+                          <th pSortableColumn="">Evaluacion 2</th>
+                          <th pSortableColumn="">Examen Final</th>
+                          <th pSortableColumn="">Promedio Final</th>
+                          <th pSortableColumn="">Examen Supletorio</th>
+                          <th pSortableColumn="">Promedio Supletorio</th>
+                          <th pSortableColumn="">Examen Remedial</th>
+                          <th pSortableColumn="">Promedio Remedial</th>
+                          <th pSortableColumn="">Examen Gracia</th>
+                          <th pSortableColumn="">Promedio Gracia</th>
+                          <th pSortableColumn="">Comportamiento</th>
+                          <th pSortableColumn="">Acción</th>
                          <th></th>
                       </tr>
                   </ng-template>
                   <ng-template pTemplate="body" let-registro>
                       <tr>
-                         
                           <td>{{registro.id_registro}}</td>
                           <td>{{registro.id_matricula.estudiante.id_persona.cedula}}</td>
                           <td>{{registro.id_matricula.estudiante.id_persona.nombre}}</td>
@@ -124,10 +119,8 @@
                           <td>{{registro.examen_gracia}}</td>
                           <td>{{registro.promedio_gracia}}</td>
                           <td>{{registro.comportamiento}}</td>
-                         
                           <td>
                               <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="edit(registro)" ></button>
-                              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" ></button>  
                           </td>
                       </tr>
                   </ng-template>
