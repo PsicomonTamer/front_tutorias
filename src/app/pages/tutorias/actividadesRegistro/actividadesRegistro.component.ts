@@ -36,21 +36,71 @@ export class ActividadesRegistroComponent implements OnInit {
 
   registro!: Registro[];
   selectRegistro!: Registro;
-  selectBoolean: boolean = true;
+
+  listarBoolean: boolean = true;
+  limpiarBoolean: boolean = true;
+  filtrosBoolean: boolean = false;
 
   ngOnInit(): void {
+    this.llenarperiodos();
+  }
+
+  habilitarListar() {
+    this.listarBoolean = false;
+  }
+
+  llenarperiodos() {
     this.servitutorias.getPeriodos().subscribe(dataPeriodos => {
       this.periodo = dataPeriodos;
     });
   }
 
-  habilitarListar(){
-      this.selectBoolean=false;
+  llenarmodalidades() {
+    this.selectModalidad = new Modalidad;
+    this.selectCurso = new Curso;
+    this.selectParalelo = new Paralelo;
+    this.selectAsignatura = new Asignatura;
+    this.curso = [];
+    this.paralelo = [];
+    this.asignatura = [];
+    this.listarBoolean = true;
+    this.servitutorias.getModalidades(this.selectPeriodo).subscribe(dataModalidades => {
+      this.modalidad = dataModalidades;
+    });
+  }
+
+  llenarcursos() {
+    this.selectCurso = new Curso;
+    this.selectParalelo = new Paralelo;
+    this.selectAsignatura = new Asignatura;
+    this.paralelo = [];
+    this.asignatura = [];
+    this.listarBoolean = true;
+    this.servitutorias.getCursos(this.selectModalidad, this.selectPeriodo).subscribe(dataCursos => {
+      this.curso = dataCursos;
+    });
+  }
+
+  llenarparalelos() {
+    this.selectParalelo = new Paralelo;
+    this.selectAsignatura = new Asignatura;
+    this.asignatura = [];
+    this.listarBoolean = true;
+    this.servitutorias.getParalelos(this.selectCurso, this.selectModalidad, this.selectPeriodo).subscribe(dataParalelos => {
+      this.paralelo = dataParalelos;
+    });
+  }
+
+  llenarasignaturas() {
+    this.selectAsignatura = new Asignatura;
+    this.listarBoolean = true;
+    this.servitutorias.getAsignaturas(this.selectParalelo, this.selectCurso, this.selectModalidad, this.selectPeriodo).subscribe(dataAsignatura => {
+      this.asignatura = dataAsignatura;
+    });
   }
 
   llenarregistros() {
     this.servitutorias.getRegistros().subscribe(dataRegistro => {
-
       for (let i = 0; i < dataRegistro.length; i++) {
         console.log(dataRegistro);
         if ((this.selectPeriodo.id_periodo == dataRegistro[i].id_matricula.id_periodo.id_periodo)
@@ -58,54 +108,38 @@ export class ActividadesRegistroComponent implements OnInit {
           && (this.selectCurso.id_curso == dataRegistro[i].id_matricula.curso.id_curso)
           && (this.selectParalelo.id_paralelo == dataRegistro[i].id_matricula.id_paralelo.id_paralelo)
           && (this.selectAsignatura.id_asignatura == dataRegistro[i].id_asignatura.id_asignatura)) {
-          console.log(dataRegistro);
-          console.log("se encontro en la posicion" + i);
-        } else {
-          console.log("no se encontro en la posicion" + i);
+            console.log("Se encontro en la posicion" + i);
+        }else{
+          console.log("No se encontro en la posicion" + i);
           dataRegistro.splice(i, 1);
           i = -1;
         };
       }
-      this.registro = dataRegistro;
-    });
-
-  }
-
-  llenarmodalidades() {
-    this.selectModalidad = new Modalidad; this.selectCurso = new Curso; this.selectParalelo = new Paralelo; this.selectAsignatura = new Asignatura;
-    this.curso = []; this.paralelo = []; this.asignatura = []; this.selectBoolean = true;
-    this.servitutorias.getModalidades(this.selectPeriodo).subscribe(dataModalidades => {
-      this.modalidad = dataModalidades;
-    });
-  }
-
-  llenarcursos() {
-    this.selectCurso = new Curso; this.selectParalelo = new Paralelo; this.selectAsignatura = new Asignatura;
-    this.paralelo = []; this.asignatura = []; this.selectBoolean = true;
-    this.servitutorias.getCursos(this.selectModalidad, this.selectPeriodo).subscribe(dataCursos => {
-      this.curso = dataCursos;
-    });
-  }
-
-  llenarparalelos() {
-    this.selectParalelo = new Paralelo; this.selectAsignatura = new Asignatura;
-    this.asignatura = []; this.selectBoolean = true;
-    this.servitutorias.getParalelos(this.selectCurso, this.selectModalidad, this.selectPeriodo).subscribe(dataParalelos => {
-      this.paralelo = dataParalelos;
-    });
-  }
-
-  llenarasignaturas() {
-    this.selectAsignatura = new Asignatura; this.selectBoolean = true;
-    this.servitutorias.getAsignaturas(this.selectParalelo, this.selectCurso, this.selectModalidad, this.selectPeriodo).subscribe(dataAsignatura => {
-      this.asignatura = dataAsignatura;
+      if (dataRegistro.length == 0) {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'NO HAY REGISTROS', life: 3000 });
+      } else {
+        this.registro = dataRegistro;
+        this.listarBoolean = true;
+        this.filtrosBoolean = true;
+        this.limpiarBoolean = false;
+      }
     });
   }
 
   limpiarFormulario() {
-    this.selectPeriodo = new Periodo; this.selectModalidad = new Modalidad; this.selectCurso = new Curso;
-    this.selectParalelo = new Paralelo; this.selectAsignatura = new Asignatura; this.selectBoolean = true;
-    this.modalidad = []; this.curso = []; this.paralelo = []; this.asignatura = []; this.registro= [];
+    this.filtrosBoolean = false;
+    this.limpiarBoolean = true;
+    this.selectPeriodo = new Periodo;
+    this.selectModalidad = new Modalidad;
+    this.selectCurso = new Curso;
+    this.selectParalelo = new Paralelo;
+    this.selectAsignatura = new Asignatura;
+    this.listarBoolean = true;
+    this.modalidad = [];
+    this.curso = [];
+    this.paralelo = [];
+    this.asignatura = [];
+    this.registro = [];
   }
 
   edit(selectRegistro: Registro) {
@@ -127,7 +161,6 @@ export class ActividadesRegistroComponent implements OnInit {
     this.registro = [...this.registro];
     this.Dialog = false;
     this.selectRegistro = { ...this.selectRegistro };
-
   }
 
   hideDialog() {
