@@ -108,8 +108,8 @@ export class ActividadesRegistroComponent implements OnInit {
           && (this.selectCurso.id_curso == dataRegistro[i].id_matricula.curso.id_curso)
           && (this.selectParalelo.id_paralelo == dataRegistro[i].id_matricula.id_paralelo.id_paralelo)
           && (this.selectAsignatura.id_asignatura == dataRegistro[i].id_asignatura.id_asignatura)) {
-            console.log("Se encontro en la posicion" + i);
-        }else{
+          console.log("Se encontro en la posicion" + i);
+        } else {
           console.log("No se encontro en la posicion" + i);
           dataRegistro.splice(i, 1);
           i = -1;
@@ -164,6 +164,7 @@ export class ActividadesRegistroComponent implements OnInit {
   }
 
   hideDialog() {
+    this.messageService.add({ severity: 'error', summary: '', detail: 'No Se Realizo Cambios', life: 3000 });
     this.Dialog = false;
     this.submitted = false;
   }
