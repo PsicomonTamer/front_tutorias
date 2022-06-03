@@ -39,6 +39,11 @@ export class TutoriasService {
 
   getDeudas(cedula: String) {
     return this.http.get<Deudas>(this.url + "Registro/buscarestudianteporcedula/" + cedula)
+
+  }
+  setRegistros(registro: Registro, b: any){
+    return this.http.put<Registro>(this.url+"Registro/Update/"+registro.id_registro,b)
+
   }
 
 }

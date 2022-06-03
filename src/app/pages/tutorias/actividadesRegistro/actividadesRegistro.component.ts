@@ -152,6 +152,7 @@ export class ActividadesRegistroComponent implements OnInit {
     if (this.selectRegistro.id_registro) {
       this.registro[this.findIndexById(this.selectRegistro.id_registro)] = this.selectRegistro;
       this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Registro Actualizado', life: 3000 });
+      this.servitutorias.setRegistros(this.selectRegistro,this.selectRegistro).subscribe()
     }
     else {
       this.selectRegistro.id_registro = this.createId();
@@ -161,6 +162,8 @@ export class ActividadesRegistroComponent implements OnInit {
     this.registro = [...this.registro];
     this.Dialog = false;
     this.selectRegistro = { ...this.selectRegistro };
+    
+
   }
 
   hideDialog() {
